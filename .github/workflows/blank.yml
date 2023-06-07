@@ -17,9 +17,11 @@ jobs:
             - name: Clone from gitee
               run: git clone --depth 1 https://gitee.com/bling_yshs/Yunzai-v3-Installation-Steps
 
-            - name: Copy
+            - name: Cd Copy AND REMOVE
               run: |
-                  cp -Rf YzLauncher-windows/* .
+                  cd YzLauncher-windows
+                  cp -R -f * ../
+                  rm YzLauncher-windows
 
             - name: Push
               run: |
