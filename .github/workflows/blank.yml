@@ -21,7 +21,7 @@ jobs:
             - name: Clone from gitee
               run: git clone --depth 1 $GITEE_LINK
 
-            - name: Cd Copy AND REMOVE
+            - name: Cd copy and remove
               run: |
                   cd $GITEE_REPO_NAME
                   cp -R -f * ../
