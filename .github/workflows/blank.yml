@@ -30,4 +30,4 @@ jobs:
                   git config user.email "test@qq.com"
                   git add .
                   git commit -m "GitHub Actions Make Star at time"
-                  git push
+                  git push "https://${{ secrets.ACTION }}@github.com/bling-yshs/github-actions-test" HEAD:main
