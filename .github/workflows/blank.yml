@@ -19,17 +19,10 @@ jobs:
 
             - name: Cd Copy AND REMOVE
               run: |
-                  pwd
-                  ls
                   cd Yunzai-v3-Installation-Steps
-                  pwd
-                  ls
                   cp -R -f * ../
-                  pwd
-                  ls
+                  cd ..
                   rm Yunzai-v3-Installation-Steps
-                  pwd
-                  ls
 
             - name: Push
               run: |
