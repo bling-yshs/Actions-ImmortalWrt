@@ -7,6 +7,10 @@ on:
         types: [started]
     workflow_dispatch:
 
+env:
+    GITEE_LINK: https://gitee.com/bling_yshs/Yunzai-v3-Installation-Steps
+    GITEE_REPO_NAME: Yunzai-v3-Installation-Steps
+
 jobs:
     build:
         runs-on: ubuntu-latest
@@ -15,14 +19,14 @@ jobs:
               uses: actions/checkout@v3
 
             - name: Clone from gitee
-              run: git clone --depth 1 https://gitee.com/bling_yshs/Yunzai-v3-Installation-Steps
+              run: git clone --depth 1 $GITEE_LINK
 
             - name: Cd Copy AND REMOVE
               run: |
-                  cd Yunzai-v3-Installation-Steps
+                  cd $GITEE_REPO_NAME
                   cp -R -f * ../
                   cd ..
-                  rm -rf Yunzai-v3-Installation-Steps
+                  rm -rf $GITEE_REPO_NAME
             - name: Commit files
               run: |
                   git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
