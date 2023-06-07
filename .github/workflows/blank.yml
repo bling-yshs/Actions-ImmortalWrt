@@ -22,7 +22,7 @@ jobs:
                   cd Yunzai-v3-Installation-Steps
                   cp -R -f * ../
                   cd ..
-                  rm Yunzai-v3-Installation-Steps
+                  rm -rf Yunzai-v3-Installation-Steps
 
             - name: Push
               run: |
