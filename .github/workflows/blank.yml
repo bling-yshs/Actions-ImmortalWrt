@@ -23,11 +23,13 @@ jobs:
                   cp -R -f * ../
                   cd ..
                   rm -rf Yunzai-v3-Installation-Steps
-
-            - name: Push
+            - name: Commit files
               run: |
-                  git config user.name "bling-yshs"
-                  git config user.email "test@qq.com"
-                  git add .
-                  git commit -m "GitHub Actions Make Star at time"
-                  git push "https://${{ secrets.ACTION }}@github.com/bling-yshs/github-actions-test" HEAD:main
+                  git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+                  git config --local user.name "github-actions[bot]"
+                  git commit -a -m "Add changes"
+            - name: Push changes
+              uses: ad-m/github-push-action@master
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  branch: ${{ github.ref }}
