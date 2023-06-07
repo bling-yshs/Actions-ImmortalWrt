@@ -19,9 +19,9 @@ jobs:
 
             - name: Cd Copy AND REMOVE
               run: |
-                  cd YzLauncher-windows
+                  cd Yunzai-v3-Installation-Steps
                   cp -R -f * ../
-                  rm YzLauncher-windows
+                  rm Yunzai-v3-Installation-Steps
 
             - name: Push
               run: |
