@@ -1,22 +1,30 @@
 name: CI-Windows
 
 on:
-  watch:
-    types: [started]
-  workflow_dispatch:
-  
+    schedule:
+        - cron: "30 10 * * *"
+    watch:
+        types: [started]
+    workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Clone from github
+              uses: actions/checkout@v3
 
-    steps:
-      - uses: actions/checkout@v3
+            - name: Clone from gitee
+              run: git clone --depth 1 https://gitee.com/bling_yshs/Yunzai-v3-Installation-Steps
 
-      - name: Run a one-line script
-        run: ls
+            - name: Copy
+              run: |
+                  cp -Rf YzLauncher-windows/* .
 
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+            - name: Push
+              run: |
+                  git config user.name "bling-yshs"
+                  git config user.email "test@qq.com"
+                  git add .
+                  git commit -m "GitHub Actions Make Star at time"
+                  git push
