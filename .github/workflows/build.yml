@@ -19,7 +19,7 @@ jobs:
             - name: Copy config and feed and diy_sh
               run: |
                   cp .config immortalwrtARM/
-                  cp feed.conf.default immortalwrtARM/
+                  cp feeds.conf.default immortalwrtARM/
                   cp diy.sh immortalwrtARM/
             - name: Build immortalwrtARM
               run: |
