@@ -18,23 +18,14 @@ jobs:
             - name: Clone from github
               uses: actions/checkout@v3
 
-            - name: Clone from gitee
-              run: git clone --depth 1 $GITEE_LINK
+            - name: Setup Go environment
+              uses: actions/setup-go@v4.0.1
 
-            - name: Cd copy and remove
+            - name: build
               run: |
-                  cd $GITEE_REPO_NAME
-                  cp -R -f * ../
-                  cd ..
-                  rm -rf $GITEE_REPO_NAME
-            - name: Commit files
-              run: |
-                  git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-                  git config --local user.name "github-actions[bot]"
-                  git add .
-                  git commit -a -m "Sync from gitee" || echo "No changes to commit"
-            - name: Push changes
-              uses: ad-m/github-push-action@master
+                  GOOS=windows GOARCH=amd64 CGO_ENABLED=1 go build -o main.exe main.go
+            - name: Upload build
+              uses: actions/upload-artifact@v3
               with:
-                  github_token: ${{ secrets.GITHUB_TOKEN }}
-                  branch: ${{ github.ref }}
+                  name: latest-dev
+                  path: main.exe
