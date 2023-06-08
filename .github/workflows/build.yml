@@ -16,13 +16,15 @@ jobs:
             - name: Clone immortalwrtARM repo
               run: $CLONE_COMMAND
 
-            - name: Copy config and feed
+            - name: Copy config and feed and diy_sh
               run: |
                   cp .config immortalwrtARM/
                   cp feed.conf.default immortalwrtARM/
+                  cp diy.sh immortalwrtARM/
             - name: Build immortalwrtARM
               run: |
                   cd immortalwrtARM
+                  ./diy.sh
                   ./scripts/feeds update -a && ./scripts/feeds install -a
                   make V=99
 
