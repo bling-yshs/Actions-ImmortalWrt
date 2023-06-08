@@ -22,4 +22,4 @@ jobs:
               uses: actions/upload-artifact@v3
               with:
                   name: latest-dev
-                  path: README.md
+                  path: immo\bin\target
