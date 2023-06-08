@@ -27,6 +27,8 @@ jobs:
                   chmod +x diy.sh
                   ./diy.sh
                   ./scripts/feeds update -a && ./scripts/feeds install -a
+                  cp .config immortalwrtARM/
+                  cp feeds.conf.default immortalwrtARM/
 
             - name: Upload config before build
               uses: actions/upload-artifact@v3
