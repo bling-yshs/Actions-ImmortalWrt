@@ -33,4 +33,4 @@ jobs:
               uses: actions/upload-artifact@v3
               with:
                   name: ImmortalWrt_build_files
-                  path: bin\target
+                  path: bin\targets
