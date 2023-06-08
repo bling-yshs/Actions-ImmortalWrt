@@ -23,18 +23,15 @@ jobs:
                   cp diy.sh immortalwrtARM/
                   cd immortalwrtARM
 
-            - name: Upload config before get dep
+            - name: Upload config before get dependency
               uses: actions/upload-artifact@v3
               with:
                   name: config before build
                   path: .config
 
-            - name: print dir
-              run: |
-                echo "now pwd"
-                pwd
             - name: Get the dependency of immortalwrtARM
               run: |
+                  cd immortalwrtARM
                   chmod +x diy.sh
                   ./diy.sh
                   ./scripts/feeds update -a && ./scripts/feeds install -a
@@ -50,7 +47,9 @@ jobs:
                   path: .config
 
             - name: Build immortalwrtARM
-              run: make V=99
+              run: |
+                  cd immortalwrtARM
+                  make V=99
 
             - name: Upload build
               uses: actions/upload-artifact@v3
