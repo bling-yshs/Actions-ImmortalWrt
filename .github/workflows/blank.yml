@@ -1,15 +1,10 @@
-name: CI-Windows
+name: Build ImmortalWrt
 
 on:
-    schedule:
-        - cron: "30 10 * * *"
-    watch:
-        types: [started]
     workflow_dispatch:
 
 env:
-    GITEE_LINK: https://gitee.com/bling_yshs/Yunzai-v3-Installation-Steps
-    GITEE_REPO_NAME: Yunzai-v3-Installation-Steps
+    CLONE_COMMAND: git clone -b mt7986 --depth 1 https://github.com/padavanonly/immortalwrtARM
 
 jobs:
     build:
@@ -18,8 +13,21 @@ jobs:
             - name: Clone from github
               uses: actions/checkout@v3
 
+            - name: Clone immortalwrtARM repo
+              run: $CLONE_COMMAND
+
+            - name: Copy config and feed
+              run: |
+                  cp .config immortalwrtARM/
+                  cp feed.conf.default immortalwrtARM/
+            - name: Build immortalwrtARM
+              run: |
+                  cd immortalwrtARM
+                  ./scripts/feeds update -a && ./scripts/feeds install -a
+                  make V=99
+
             - name: Upload build
               uses: actions/upload-artifact@v3
               with:
-                  name: latest-dev
-                  path: immo\bin\target
+                  name: ImmortalWrt_build_files
+                  path: bin\target
