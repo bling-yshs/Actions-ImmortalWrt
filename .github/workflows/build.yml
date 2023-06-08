@@ -46,13 +46,13 @@ jobs:
                   name: config before build
                   path: .config
 
-            - name: Build immortalwrtARM
-              run: |
-                  cd immortalwrtARM
-                  make V=99
+            # - name: Build immortalwrtARM
+            #   run: |
+            #       cd immortalwrtARM
+            #       make V=99
 
-            - name: Upload build
-              uses: actions/upload-artifact@v3
-              with:
-                  name: ImmortalWrt_build_files
-                  path: bin\targets
+            # - name: Upload build
+            #   uses: actions/upload-artifact@v3
+            #   with:
+            #       name: ImmortalWrt_build_files
+            #       path: bin\targets
