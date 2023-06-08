@@ -18,14 +18,8 @@ jobs:
             - name: Clone from github
               uses: actions/checkout@v3
 
-            - name: Setup Go environment
-              uses: actions/setup-go@v4.0.1
-
-            - name: build
-              run: |
-                  GOOS=windows GOARCH=amd64 CGO_ENABLED=1 go build -o main.exe main.go
             - name: Upload build
               uses: actions/upload-artifact@v3
               with:
                   name: latest-dev
-                  path: main.exe
+                  path: README.md
