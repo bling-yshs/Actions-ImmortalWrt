@@ -22,13 +22,7 @@ jobs:
                   cp feeds.conf.default immortalwrtARM/
                   cp diy.sh immortalwrtARM/
                   cd immortalwrtARM
-
-            - name: Upload config before get dependency
-              uses: actions/upload-artifact@v3
-              with:
-                  name: config before get dependency
-                  path: .config
-
+                  
             - name: Get the dependency of immortalwrtARM
               run: |
                   cd immortalwrtARM
@@ -46,13 +40,13 @@ jobs:
                   name: config before build
                   path: .config
 
-            # - name: Build immortalwrtARM
-            #   run: |
-            #       cd immortalwrtARM
-            #       make V=99
+            - name: Build immortalwrtARM
+              run: |
+                  cd immortalwrtARM
+                  make V=99
 
-            # - name: Upload build
-            #   uses: actions/upload-artifact@v3
-            #   with:
-            #       name: ImmortalWrt_build_files
-            #       path: bin\targets
+            - name: Upload build
+              uses: actions/upload-artifact@v3
+              with:
+                  name: ImmortalWrt_build_files
+                  path: bin\targets
