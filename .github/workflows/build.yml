@@ -33,7 +33,6 @@ jobs:
 
             - name: Build immortalwrtARM
               run: |
-                  cd immortalwrtARM
                   make -j$(nproc) || make -j1 || make -j1 V=99
 
             - name: Upload build
