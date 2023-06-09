@@ -18,6 +18,8 @@ jobs:
               run: |
                   mkdir -p backup_config
                   cp .config feeds.conf.default diy.sh backup_config/
+                  echo "md5"
+                  md5sum .config
 
             - name: Clone immortalwrtARM repo
               run: |
@@ -34,6 +36,8 @@ jobs:
             - name: Recovery from backup
               run: |
                   cp -r -f backup_config/ .
+                  echo "md5"
+                  md5sum .config
 
             - name: Upload config before build
               uses: actions/upload-artifact@v3
