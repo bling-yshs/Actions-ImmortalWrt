@@ -40,3 +40,24 @@
    <br>
    <img src="picture/Build_files.jpg">
    <br>
+
+## (补充)前置步骤，定制config和feeds：
+1. 克隆对应分支的openwrt仓库
+
+2. 下载第三方插件，如
+    ```bash
+    git clone https://github.com/EOYOHOO/UA2F.git package/UA2F
+    git clone https://github.com/EOYOHOO/rkp-ipid.git package/rkp-ipid
+    ```
+
+3. 更新feeds
+    ```bash
+    ./scripts/feeds update -a && ./scripts/feeds install -a
+    ```
+
+4. 定制config
+    ```bash
+    make menuconfig
+    ```
+
+5. 选择对应的Target System，Subtarget，Target Profile，注意Target Profile必须精确到对应的设备名，否则理论上不兼容
