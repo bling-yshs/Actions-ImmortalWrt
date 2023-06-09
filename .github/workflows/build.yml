@@ -5,6 +5,7 @@ on:
 
 env:
     CLONE_COMMAND: git clone -b mt7986 --depth 1 https://github.com/padavanonly/immortalwrtARM
+    REPO_NAME: immortalwrtARM
 
 jobs:
     build:
@@ -16,8 +17,8 @@ jobs:
             - name: Clone immortalwrtARM repo
               run: |
                 $CLONE_COMMAND
-                cp -rn immortalwrtARM/* .
-                rm -rf immortalwrtARM
+                cp -rn $REPO_NAME/* .
+                rm -rf $REPO_NAME
                   
             - name: Get the dependency of immortalwrtARM
               run: |
