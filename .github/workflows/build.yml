@@ -43,7 +43,7 @@ jobs:
             - name: Build immortalwrtARM
               run: |
                   cd immortalwrtARM
-                  make V=99
+                  make -j$(nproc) V=99
 
             - name: Upload build
               uses: actions/upload-artifact@v3
