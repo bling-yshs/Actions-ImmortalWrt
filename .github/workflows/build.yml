@@ -16,8 +16,8 @@ jobs:
 
             - name: Backup config
               run: |
-                  mkdir backup
-                  cp -r * backup/
+                  mkdir -p backup_config
+                  cp .config feeds.conf.default diy.sh backup_config/
 
             - name: Clone immortalwrtARM repo
               run: |
@@ -33,7 +33,7 @@ jobs:
 
             - name: Recovery from backup
               run: |
-                  cp -r -f backup/ .
+                  cp -r -f backup_config/ .
 
             - name: Upload config before build
               uses: actions/upload-artifact@v3
