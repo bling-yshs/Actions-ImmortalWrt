@@ -2,6 +2,7 @@
 
 ## 使用步骤：
 
+0. fork 本仓库
 1. 上传 `.config` 文件与 `feeds.conf.default` 文件到此仓库，替换掉仓库里本来的文件
 2. 编辑仓库内的 `diy.sh` 文件，可以自定义编译前的命令，一般使用 git clone 来克隆需要使用到的第三方插件
 3. 编辑仓库内的 `.github\workflows\build.yml` 文件，修改里面的变量，具体如下：
