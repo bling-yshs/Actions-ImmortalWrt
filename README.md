@@ -19,6 +19,7 @@
             CLONE_COMMAND: git clone -b openwrt-23.05 --depth 1 https://github.com/openwrt/openwrt
             REPO_NAME: openwrt
         ```
+    - **一定要注意yml语法，CLONE_COMMAND:和REPO_NAME:后面都需要有一个空格，否则会报错**
 4. 进入本仓库的 Actions 页面，在左侧选择 Build ImmortalWrt，右侧点击 Run workflow，最后点击绿色的 Run workflow
    <br>
    <img src="picture/Actions.jpg">
