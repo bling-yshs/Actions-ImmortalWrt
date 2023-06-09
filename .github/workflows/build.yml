@@ -35,7 +35,7 @@ jobs:
 
             - name: Recovery from backup
               run: |
-                  cp -r -f backup_config/ .
+                  cp -r -f backup_config/. .
                   echo "md5"
                   md5sum .config
 
