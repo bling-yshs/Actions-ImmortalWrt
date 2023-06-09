@@ -23,7 +23,7 @@
    <br>
    <img src="picture/Actions.jpg">
    <br>
-5. 等待编译完成
+5. 等待编译完成，大约需要 2-3 小时
 6. 进入编译完成的 workflow，点击左侧 Summary，下载 ImmortalWrt_build_files，解压后即为编译完成后的固件
    <br>
    <img src="picture/Build_files.jpg">
