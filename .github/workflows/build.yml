@@ -28,10 +28,10 @@ jobs:
                   cd immortalwrtARM
                   chmod +x diy.sh
                   ./diy.sh
-                  ./scripts/feeds update -a && ./scripts/feeds install -a
                   cd ..
                   cp .config immortalwrtARM/
                   cp feeds.conf.default immortalwrtARM/
+                  rm .config
                   cd immortalwrtARM
 
             - name: Upload config before build
@@ -53,4 +53,4 @@ jobs:
               uses: actions/upload-artifact@v3
               with:
                   name: ImmortalWrt_build_files
-                  path: bin/targets
+                  path: immortalwrtARM/bin/targets
