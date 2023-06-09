@@ -14,39 +14,30 @@ jobs:
               uses: actions/checkout@v3
 
             - name: Clone immortalwrtARM repo
-              run: $CLONE_COMMAND
-
-            - name: Copy config and feed and diy_sh
               run: |
-                  cp .config immortalwrtARM/
-                  cp feeds.conf.default immortalwrtARM/
-                  cp diy.sh immortalwrtARM/
-                  cd immortalwrtARM
+                $CLONE_COMMAND
+                cp -rn immortalwrtARM/* .
+                rm -rf immortalwrtARM
                   
             - name: Get the dependency of immortalwrtARM
               run: |
-                  cd immortalwrtARM
                   chmod +x diy.sh
                   ./diy.sh
                   ./scripts/feeds update -a && ./scripts/feeds install -a
-                  cd ..
-                  cp .config immortalwrtARM/
-                  cp feeds.conf.default immortalwrtARM/
-                  cd immortalwrtARM
 
             - name: Upload config before build
               uses: actions/upload-artifact@v3
               with:
                   name: config before build
-                  path: immortalwrtARM/.config
+                  path: .config
 
             - name: Build immortalwrtARM
               run: |
                   cd immortalwrtARM
-                  make -j$(nproc) V=99
+                  make -j$(nproc) || make -j1 || make -j1 V=99
 
             - name: Upload build
               uses: actions/upload-artifact@v3
               with:
                   name: ImmortalWrt_build_files
-                  path: immortalwrtARM/bin/targets
+                  path: bin/targets
