@@ -43,10 +43,14 @@ jobs:
             - name: Build immortalwrtARM
               run: |
                   cd immortalwrtARM
-                  make V=99
+                  mkdir -p bin/targets&& echo "hello" > bin/targets/pwp.txt
+                  echo "===========================================now pwd:"
+                  pwd
+                  echo "ls:"
+                  ls
 
             - name: Upload build
               uses: actions/upload-artifact@v3
               with:
                   name: ImmortalWrt_build_files
-                  path: immortalwrtARM\bin\targets
+                  path: bin/targets
