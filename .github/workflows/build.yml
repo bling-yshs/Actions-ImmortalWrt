@@ -14,17 +14,26 @@ jobs:
             - name: Clone from github
               uses: actions/checkout@v3
 
+            - name: Backup config
+              run: |
+                  mkdir backup
+                  cp -r * backup/
+
             - name: Clone immortalwrtARM repo
               run: |
-                $CLONE_COMMAND
-                cp -rn $REPO_NAME/* .
-                rm -rf $REPO_NAME
-                  
+                  $CLONE_COMMAND
+                  cp -rn $REPO_NAME/* .
+                  rm -rf $REPO_NAME
+
             - name: Get the dependency of immortalwrtARM
               run: |
                   chmod +x diy.sh
                   ./diy.sh
                   ./scripts/feeds update -a && ./scripts/feeds install -a
+
+            - name: Recovery from backup
+              run: |
+                  cp -r -f backup/ .
 
             - name: Upload config before build
               uses: actions/upload-artifact@v3
