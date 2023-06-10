@@ -47,7 +47,8 @@ jobs:
 
             - name: Build immortalwrtARM
               run: |
-                  make -j$(nproc) || make -j1 || make -j1 V=99
+                  make -j$(nproc)
+# 默认make -j$(nproc)，代表多线程编译。如果求稳想看报错信息，可以使用make -j1 V=99代替
 
             - name: Upload build
               uses: actions/upload-artifact@v3
