@@ -43,7 +43,7 @@
    <br>
 
 ## (补充)前置步骤，定制config和feeds：
-1. 克隆对应分支的openwrt仓库
+1. 克隆对应分支的openwrt仓库(使用自己的ubuntu系统，或者利用github codespace)
 
 2. 下载第三方插件，如
     ```bash
