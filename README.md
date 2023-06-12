@@ -43,7 +43,7 @@
    <br>
 
 ## (补充)前置步骤，定制config和feeds：
-1. 克隆对应分支的openwrt仓库(使用自己的ubuntu系统，或者利用github codespace)
+1. 克隆对应分支的 openwrt 仓库(使用自己的 ubuntu 系统，或者利用 github codespace)
 
 2. 下载第三方插件，如
     ```bash
@@ -56,9 +56,10 @@
     ./scripts/feeds update -a && ./scripts/feeds install -a
     ```
 
-4. 定制config
+4. 定制config，先输入
     ```bash
     make menuconfig
     ```
+    再选择对应的 Target System，Subtarget，Target Profile，注意 Target Profile 必须精确到对应的设备名，否则理论上不兼容
 
-5. 选择对应的Target System，Subtarget，Target Profile，注意Target Profile必须精确到对应的设备名，否则理论上不兼容
+5. 将 `.config` 文件与 `feeds.conf.default` 文件在 codespace 里右键，下载到本地，就得到自己定制好的config和feed啦
