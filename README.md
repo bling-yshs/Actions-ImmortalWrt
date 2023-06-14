@@ -63,3 +63,44 @@
     再选择对应的 Target System，Subtarget，Target Profile，注意 Target Profile 必须精确到对应的设备名，否则理论上不兼容
 
 5. 将 `.config` 文件与 `feeds.conf.default` 文件在 codespace 里右键，下载到本地，就得到自己定制好的config和feed啦
+
+## (补充)与本项目无关的一些 openwrt 编译的干货
+
+### 编译之如何单独编译某一个模块
+
+1. 想单独编译某一个模块，前提是你已经编译过一次完整的 openwrt 固件才行，因为编译完整的 openwrt 固件会时，它会自动编译工具链，没有工具链就没法单独编译模块，这一点你必须清楚地了解。
+
+2. 确保你已经编译过一次完整的 openwrt 之后，先克隆对应仓库的地址到 package 文件夹下，格式如下：
+    ```bash
+    git clone 仓库地址 package/项目名称
+    ```
+
+    例子：
+    ```bash
+    git clone https://github.com/iv7777/luci-app-pptp-server package/luci-app-pptp-server
+    ```
+
+
+3. 先清空下之前编译的残留物 `make clean`
+
+4. 更新feeds
+    ```bash
+    ./scripts/feeds update -a && ./scripts/feeds install -a
+    ```
+
+5. 执行 `make menuconfig` ，选择对应的 Target System，Subtarget，Target Profile
+
+6. 找到对应的模块的位置，将其选定，标记为M，M代表以模块方式编译，这样我们就不需要编译整个 openwrt 也可以编译出 ipk 文件啦。如图所示，选中以后记得选择 Save 来保存哦
+    <br>
+    <img src="picture/mod.jpg" >
+    <br>
+
+7. 开始编译吧，格式如下：
+    ```bash
+    make package/项目名称/compile v=99
+    ```
+    
+    例子：
+    ```bash
+    make package/luci-app-pptp-server/compile v=99
+    ```
