@@ -97,10 +97,10 @@
 
 7. 开始编译吧，格式如下：
     ```bash
-    make package/项目名称/compile v=99
+    make package/项目名称/compile V=99
     ```
 
     例子：
     ```bash
-    make package/luci-app-pptp-server/compile v=99
+    make package/luci-app-pptp-server/compile V=99
     ```
