@@ -64,7 +64,7 @@
 
 5. 将 `.config` 文件与 `feeds.conf.default` 文件在 codespace 里右键，下载到本地，就得到自己定制好的config和feed啦
 
-## (补充)与本项目无关的一些 openwrt 编译的干货
+## (补充)与本项目无关的一些有关 openwrt 编译的干货
 
 ### 编译之如何单独编译某一个模块
 
@@ -99,7 +99,7 @@
     ```bash
     make package/项目名称/compile v=99
     ```
-    
+
     例子：
     ```bash
     make package/luci-app-pptp-server/compile v=99
