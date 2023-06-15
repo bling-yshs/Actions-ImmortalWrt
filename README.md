@@ -16,7 +16,7 @@
           REPO_NAME: immortalwrtARM
       ```
 
-        将 `CLONE_COMMAND: ` 后面的内容改为克隆具体的仓库，` https://github.com/padavanonly/immortalwrtARM` 代表仓库链接，`-b mt7986` 代表仅克隆仓库内的 mt7986 分支。  
+        将 `CLONE_COMMAND: ` 后面的内容改为克隆具体的仓库，`https://github.com/padavanonly/immortalwrtARM` 代表仓库链接，`-b mt7986` 代表仅克隆仓库内的 mt7986 分支。  
 
         再将 `REPO_NAME: ` 后面的内容改为仓库名称，也就是仓库链接 `https://github.com/padavanonly/immortalwrtARM` 这一串地址的最后一个斜杠末尾的字符串，即 `immortalwrtARM`
         
@@ -28,7 +28,7 @@
             REPO_NAME: openwrt
         ```
 
-    - **一定要注意yml语法，CLONE_COMMAND:和REPO_NAME:后面都需要有一个空格，否则会报错**
+    - **一定要注意yml语法，`CLONE_COMMAND:` 和 `REPO_NAME:` 后面都需要有一个空格，否则会报错**
 
 4. 进入本仓库的 Actions 页面，在左侧选择 Build ImmortalWrt，右侧点击 Run workflow，最后点击绿色的 Run workflow
    <br>
@@ -42,7 +42,7 @@
    <img src="picture/Build_files.jpg">
    <br>
 
-## (补充)前置步骤，定制config和feeds：
+## (补充)前置步骤，定制 config 和 feeds：
 1. 克隆对应分支的 openwrt 仓库(可以使用自己的 ubuntu 系统，教程里是利用免费的 github codespace 进行定制)
 
 2. 下载第三方插件，如
