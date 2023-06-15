@@ -16,9 +16,9 @@
           REPO_NAME: immortalwrtARM
       ```
 
-        将 `CLONE_COMMAND: ` 后面的内容改为克隆具体的仓库，`https://github.com/padavanonly/immortalwrtARM` 代表仓库链接，`-b mt7986` 代表仅克隆仓库内的 mt7986 分支。  
+        将 `CLONE_COMMAND:` 后面的内容改为克隆具体的仓库，`https://github.com/padavanonly/immortalwrtARM` 代表仓库链接，`-b mt7986` 代表仅克隆仓库内的 mt7986 分支。  
 
-        再将 `REPO_NAME: ` 后面的内容改为仓库名称，也就是仓库链接 `https://github.com/padavanonly/immortalwrtARM` 这一串地址的最后一个斜杠末尾的字符串，即 `immortalwrtARM`
+        再将 `REPO_NAME:` 后面的内容改为仓库名称，也就是仓库链接 `https://github.com/padavanonly/immortalwrtARM` 这一串地址的最后一个斜杠末尾的字符串，即 `immortalwrtARM`
         
     - 举个例子，我想编译 `https://github.com/openwrt/openwrt` 的 `openwrt-23.05` 分支，那么我需要将其修改为：
 
