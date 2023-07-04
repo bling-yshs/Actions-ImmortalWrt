@@ -14,30 +14,24 @@ jobs:
             - name: Clone from github
               uses: actions/checkout@v3
 
-            - name: Backup config
-              run: |
-                  mkdir -p backup_config
-                  cp .config feeds.conf.default diy.sh backup_config/
-                  echo "md5"
-                  md5sum .config
-
             - name: Clone immortalwrtARM repo
               run: |
                   $CLONE_COMMAND
-                  cp -rn $REPO_NAME/* .
-                  rm -rf $REPO_NAME
+
+            - name: Copy config to source code
+              run: |
+                  cp -f .config feeds.conf.default diy.sh $REPO_NAME/
 
             - name: Get the dependency of immortalwrtARM
               run: |
+                  cd $REPO_NAME
                   chmod +x diy.sh
                   ./diy.sh
                   ./scripts/feeds update -a && ./scripts/feeds install -a
 
-            - name: Recovery from backup
+            - name: Copy config to source code
               run: |
-                  cp -r -f backup_config/. .
-                  echo "md5"
-                  md5sum .config
+                  cp -f .config feeds.conf.default diy.sh $REPO_NAME/
 
             - name: Upload config before build
               uses: actions/upload-artifact@v3
@@ -47,11 +41,20 @@ jobs:
 
             - name: Build immortalwrtARM
               run: |
+                  cd $REPO_NAME
                   make -j$(nproc)
+                  pwd
+                  ls
 # 默认make -j$(nproc)，代表多线程编译。如果求稳想看报错信息，可以使用make -j1 V=99代替
+
+            - name: Move results to root
+              run: |
+                  cd /home/runner/work/Actions-ImmortalWrt/Actions-ImmortalWrt/immortalwrtARM
+                  mv bin/targets ../
+                  cd ..
 
             - name: Upload build
               uses: actions/upload-artifact@v3
               with:
                   name: ImmortalWrt_build_files
-                  path: bin/targets
+                  path: targets
