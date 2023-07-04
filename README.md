@@ -104,3 +104,27 @@
     ```bash
     make package/luci-app-pptp-server/compile V=99
     ```
+
+### (补充)我常用的一些插件
+
+1. luci-theme-argon-new(主题)
+
+2. luci-app-sqm(智能网速控制)
+
+3. luci-app-xlnetacc(迅雷快鸟免费提速)
+
+4. luci-app-upnp(自动upnp)
+
+5. luci-app-ttyd(网页终端)、
+
+6. luci-app-openclash(科学上网)
+
+7. luci-app-eqos(网速限制)
+
+<!-- 
+kernel-modules->Other modules->kmod-rkp-ipid
+kernel modules->Netfilter Extensions->kmod-ipt-u32
+network->Routing and Redirection->ua2f
+network->firewall->iptables-mod-filter
+network->firewall->iptables-mod-u32
+ -->
