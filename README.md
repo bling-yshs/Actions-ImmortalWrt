@@ -49,6 +49,7 @@
     ```bash
     git clone https://github.com/EOYOHOO/UA2F.git package/UA2F
     git clone https://github.com/EOYOHOO/rkp-ipid.git package/rkp-ipid
+
     ```
 
 3. 更新feeds
@@ -60,9 +61,17 @@
     ```bash
     make menuconfig
     ```
-    再选择对应的 Target System，Subtarget，Target Profile，注意 Target Profile 必须精确到对应的设备名，否则理论上不兼容
+    会弹出插件配置界面，选择对应的 `Target System` ， `Subtarget` ， `Target Profile` ， 注意， `Target Profile` 必须精确到对应的设备名，否则理论上不兼容
 
-5. 将 `.config` 文件与 `feeds.conf.default` 文件在 codespace 里右键，下载到本地，就得到自己定制好的config和feed啦
+5. 继续选择需要安装的插件，上下箭头移动，左右箭头切换底部选项卡，回车为选择进入，对着插件按空格会将插件前的标识变为 `M` ，再按一下空格会变成 `*` ，变成 `*` 才代表此插件被选中安装
+
+6. 选择好需要的插件以后，用左右箭头切换到 `save` 选项卡按回车保存
+
+7. 输入命令
+    ```bash
+    zip conf.zip feeds.conf.default .config
+    ```
+    会将 `feeds.conf.default` 与 `.config` 两个文件压缩为 `conf.zip` ，将 `conf.zip` 下载到本地，然后解压可以得到自己定制好的config和feed啦
 
 ## (补充)与本项目无关的一些有关 openwrt 编译的干货
 
@@ -107,15 +116,15 @@
 
 ### (补充)我常用的一些插件
 
-1. luci-theme-argon-new(主题)
+1. luci-theme-argon-new(openwrt网页主题)
 
 2. luci-app-sqm(智能网速控制)
 
-3. luci-app-xlnetacc(迅雷快鸟免费提速)
+3. luci-app-timedreboot(定时重启)
 
 4. luci-app-upnp(自动upnp)
 
-5. luci-app-ttyd(网页终端)、
+5. luci-app-ttyd(网页终端)
 
 6. luci-app-openclash(科学上网)
 
@@ -127,4 +136,6 @@ kernel modules->Netfilter Extensions->kmod-ipt-u32
 network->Routing and Redirection->ua2f
 network->firewall->iptables-mod-filter
 network->firewall->iptables-mod-u32
+
+记得最后搜索 Netfilter Extensions 加上 CONFIG_NETFILTER_NETLINK_GLUE_CT=y
  -->
