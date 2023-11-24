@@ -49,7 +49,7 @@ jobs:
 
             - name: Move results to root
               run: |
-                  cd /home/runner/work/Actions-ImmortalWrt/Actions-ImmortalWrt/immortalwrtARM
+                  cd /home/runner/work/Actions-ImmortalWrt/Actions-ImmortalWrt/$REPO_NAME
                   mv bin/targets ../
                   cd ..
 
