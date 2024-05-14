@@ -118,24 +118,26 @@
 
 1. luci-theme-argon-new(openwrt网页主题)
 
-2. luci-app-sqm(智能网速控制)
+2. luci-app-openclash(科学上网)
 
-3. luci-app-timedreboot(定时重启)
+3. luci-app-sqm(智能网速控制)
 
-4. luci-app-upnp(自动upnp)
+4. luci-app-ttyd(网页终端)
 
-5. luci-app-ttyd(网页终端)
-
-6. luci-app-openclash(科学上网)
-
-7. luci-app-eqos(网速限制)
+5. luci-app-upnp(自动upnp)
 
 <!-- 
-kernel-modules->Other modules->kmod-rkp-ipid
-kernel modules->Netfilter Extensions->kmod-ipt-u32
-network->Routing and Redirection->ua2f
-network->firewall->iptables-mod-filter
-network->firewall->iptables-mod-u32
+Kernel Modules->Other modules->kmod-rkp-ipid
+Kernel Modules->Netfilter Extensions->kmod-ipt-u32
+Network->Routing and Redirection->ua2f
+Network->SSH->openssh-sftp-server
+Network->Firewall->iptables-mod-filter
+Network->Firewall->iptables-mod-u32
+
+Luci->Theme->luci-theme-argon-new
+Luci->Applications->luci-app-openclash
+Luci->Applications->luci-app-ttyd
+Luci->Applications->luci-app-upnp
 
 记得最后搜索 Netfilter Extensions 加上 CONFIG_NETFILTER_NETLINK_GLUE_CT=y
  -->
