@@ -4,22 +4,22 @@ on:
   workflow_dispatch:
     inputs:
       owner:
-        description: 'ImmortalWrt 仓库的拥有者'
+        description: 'ImmortalWrt 仓库的拥有者 (Owner of ImmortalWrt repo)'
         type: string
         required: true
         default: 'padavanonly'
       repo:
-        description: 'ImmortalWrt 仓库的名字'
+        description: 'ImmortalWrt 仓库的名字 (Name of ImmortalWrt repo)'
         type: string
         required: true
         default: 'immortalwrtARM'
       branch:
-        description: 'ImmortalWrt 仓库的分支'
+        description: 'ImmortalWrt 仓库的分支 (Branch of ImmortalWrt repo)'
         type: string
         required: true
         default: 'mt7986'
       multithreading:
-        description: '开启多线程编译'
+        description: '开启多线程编译 (Enable multithreading build)'
         type: boolean
         default: true
 
