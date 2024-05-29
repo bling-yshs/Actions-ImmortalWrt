@@ -1,64 +1,85 @@
-name: Build ImmortalWrt
+name: 🚀 编译 (Build)
 
 on:
-    workflow_dispatch:
-
-env:
-    CLONE_COMMAND: git clone -b mt7986 --depth 1 https://github.com/padavanonly/immortalwrtARM
-    REPO_NAME: immortalwrtARM
+  workflow_dispatch:
+    inputs:
+      owner:
+        description: 'ImmortalWrt 仓库的拥有者 (Owner of ImmortalWrt repo)'
+        type: string
+        required: true
+        default: 'padavanonly'
+      repo:
+        description: 'ImmortalWrt 仓库的名字 (Name of ImmortalWrt repo)'
+        type: string
+        required: true
+        default: 'immortalwrtARM'
+      branch:
+        description: 'ImmortalWrt 仓库的分支 (Branch of ImmortalWrt repo)'
+        type: string
+        required: true
+        default: 'mt7986'
+      multithreading:
+        description: '开启多线程编译 (Enable multithreading build)'
+        type: boolean
+        default: true
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Clone from github
-              uses: actions/checkout@v3
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 下载编译所需的依赖 (Install the software packages required for compilation)
+        run: |
+          sudo apt update
+          sudo apt install -y ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libfuse-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libpython3-dev libreadline-dev libssl-dev libtool lrzsz mkisofs msmtp ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pyelftools python3-setuptools qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
 
-            - name: Clone immortalwrtARM repo
-              run: |
-                  $CLONE_COMMAND
+      - name: 克隆当前仓库 (Clone current repo)
+        uses: actions/checkout@v4
+        with:
+          path: 'current'
 
-            - name: Copy config to source code
-              run: |
-                  cp -f .config feeds.conf.default diy.sh $REPO_NAME/
+      - name: 克隆 ImmortalWrt 仓库 (Clone ImmortalWrt repo)
+        uses: actions/checkout@v4
+        with:
+          repository: '${{inputs.owner}}/${{inputs.repo}}'
+          path: ImmortalWrt
 
-            - name: Install the software packages required for compilation
-              run: |
-                  sudo apt install -y ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libfuse-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libpython3-dev libreadline-dev libssl-dev libtool lrzsz mkisofs msmtp ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pyelftools python3-setuptools qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
+      - name: 复制当前仓库的配置文件 (Copy current repo config)
+        run: |
+          cp -f current/.config current/feeds.conf.default current/diy.sh ImmortalWrt/
 
-            - name: Get the dependency of immortalwrtARM
-              run: |
-                  cd $REPO_NAME
-                  chmod +x diy.sh
-                  ./diy.sh
-                  ./scripts/feeds update -a && ./scripts/feeds install -a
+      - name: 运行 diy.sh (Run diy.sh)
+        working-directory: ImmortalWrt
+        run: |
+          chmod +x diy.sh
+          ./diy.sh
 
-            - name: Copy config to source code
-              run: |
-                  cp -f .config feeds.conf.default diy.sh $REPO_NAME/
+      - name: 更新并下载 feeds (Update and download feeds)
+        working-directory: ImmortalWrt
+        run: |
+          ./scripts/feeds update -a && ./scripts/feeds install -a
 
-            - name: Upload config before build
-              uses: actions/upload-artifact@v3
-              with:
-                  name: config before build
-                  path: .config
+      - name: 编译前上传配置 (Upload config before build)
+        uses: actions/upload-artifact@v4
+        with:
+          name: config-before-build
+          path: |
+            ImmortalWrt/feeds.conf.default
+            ImmortalWrt/.config
 
-            - name: Build immortalwrtARM
-              run: |
-                  cd $REPO_NAME
-                  make -j$(nproc)
-                  pwd
-                  ls
-# 默认make -j$(nproc)，代表多线程编译。如果求稳想看报错信息，可以使用make -j1 V=99代替
+      - name: 多线程编译 ImmortalWrt (Build ImmortalWrt multithreading)
+        if: ${{inputs.multithreading == true}}
+        working-directory: ImmortalWrt
+        run: |
+          make -j$(nproc)
 
-            - name: Move results to root
-              run: |
-                  cd /home/runner/work/Actions-ImmortalWrt/Actions-ImmortalWrt/$REPO_NAME
-                  mv bin/targets ../
-                  cd ..
+      - name: 单线程编译 ImmortalWrt (Build ImmortalWrt single thread)
+        if: ${{inputs.multithreading == false}}
+        working-directory: ImmortalWrt
+        run: |
+          make -j1 V=99
 
-            - name: Upload build
-              uses: actions/upload-artifact@v3
-              with:
-                  name: ImmortalWrt_build_files
-                  path: targets
+      - name: 上传编译结果 (Upload build result)
+        uses: actions/upload-artifact@v4
+        with:
+          name: ImmortalWrt-build-result
+          path: ImmortalWrt/bin/targets
