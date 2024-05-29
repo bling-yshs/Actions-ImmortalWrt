@@ -4,17 +4,17 @@ on:
   workflow_dispatch:
     inputs:
       owner:
-        description: 'OpenWrt 仓库的拥有者'
+        description: 'ImmortalWrt 仓库的拥有者'
         type: string
         required: true
         default: 'padavanonly'
       repo:
-        description: 'OpenWrt 仓库的名字'
+        description: 'ImmortalWrt 仓库的名字'
         type: string
         required: true
         default: 'immortalwrtARM'
       branch:
-        description: 'OpenWrt 仓库的分支'
+        description: 'ImmortalWrt 仓库的分支'
         type: string
         required: true
         default: 'mt7986'
@@ -27,57 +27,59 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Install the software packages required for compilation
+      - name: 下载编译所需的依赖 (Install the software packages required for compilation)
         run: |
           sudo apt update
           sudo apt install -y ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libfuse-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libpython3-dev libreadline-dev libssl-dev libtool lrzsz mkisofs msmtp ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pyelftools python3-setuptools qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
 
-      - name: Clone current repo
+      - name: 克隆当前仓库 (Clone current repo)
         uses: actions/checkout@v4
         with:
           path: 'current'
 
-      - name: Clone OpenWrt repo
+      - name: 克隆 ImmortalWrt 仓库 (Clone ImmortalWrt repo)
         uses: actions/checkout@v4
         with:
           repository: '${{inputs.owner}}/${{inputs.repo}}'
-          path: openwrt
+          path: ImmortalWrt
 
-      - run: ls -al
-
-      - name: Copy config
+      - name: 复制当前仓库的配置文件 (Copy current repo config)
         run: |
-          cp -f current/.config current/feeds.conf.default current/diy.sh openwrt/
+          cp -f current/.config current/feeds.conf.default current/diy.sh ImmortalWrt/
 
-      - name: Get the dependency of ImmortalWrt
-        working-directory: openwrt
+      - name: 运行 diy.sh (Run diy.sh)
+        working-directory: ImmortalWrt
         run: |
           chmod +x diy.sh
           ./diy.sh
+
+      - name: 获取 ImmortalWrt 的依赖 (Get the dependency of ImmortalWrt)
+        working-directory: ImmortalWrt
+        run: |
           ./scripts/feeds update -a && ./scripts/feeds install -a
 
-      - name: Upload config before build
+      - name: 编译前上传配置 (Upload config before build)
         uses: actions/upload-artifact@v4
         with:
           name: config-before-build
           path: |
-            openwrt/feeds.conf.default
-            openwrt/.config
+            ImmortalWrt/feeds.conf.default
+            ImmortalWrt/.config
 
-      - name: Build ImmortalWrt multithreading
+      - name: 多线程编译 ImmortalWrt (Build ImmortalWrt multithreading)
         if: ${{inputs.multithreading == true}}
-        working-directory: openwrt
+        working-directory: ImmortalWrt
         run: |
           make -j$(nproc)
 
-      - name: Build ImmortalWrt single thread
+      - name: 单线程编译 ImmortalWrt (Build ImmortalWrt single thread)
         if: ${{inputs.multithreading == false}}
-        working-directory: openwrt
+        working-directory: ImmortalWrt
         run: |
           make -j1 V=99
 
-      - name: Upload build result
+      - name: 上传编译结果 (Upload build result)
         uses: actions/upload-artifact@v4
         with:
           name: ImmortalWrt-build-result
-          path: openwrt/bin/targets
+          path: ImmortalWrt/bin/targets
