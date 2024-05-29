@@ -60,7 +60,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: config-before-build
-          path: openwrt/.config
+          path: |
+            openwrt/feeds.conf.default
+            openwrt/.config
 
       - name: Build ImmortalWrt multithreading
         if: ${{inputs.multithreading == true}}
