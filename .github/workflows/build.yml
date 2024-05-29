@@ -41,6 +41,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: '${{inputs.owner}}/${{inputs.repo}}'
+          ref: ${{inputs.branch}}
           path: ImmortalWrt
 
       - name: 复制当前仓库的配置文件 (Copy current repo config)
