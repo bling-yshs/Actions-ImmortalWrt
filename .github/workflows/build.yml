@@ -53,7 +53,7 @@ jobs:
           chmod +x diy.sh
           ./diy.sh
 
-      - name: 获取 ImmortalWrt 的依赖 (Get the dependency of ImmortalWrt)
+      - name: 更新并下载 feeds (Update and download feeds)
         working-directory: ImmortalWrt
         run: |
           ./scripts/feeds update -a && ./scripts/feeds install -a
