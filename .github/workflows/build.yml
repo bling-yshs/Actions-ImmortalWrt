@@ -1,4 +1,4 @@
-name: 测试通道
+name: 🚀 编译 (Build)
 
 on:
   workflow_dispatch:
