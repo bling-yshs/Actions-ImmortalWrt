@@ -42,6 +42,8 @@ jobs:
           repository: '${{inputs.owner}}/${{inputs.repo}}'
           path: openwrt
 
+      - run: ls -al
+
       - name: Copy config
         run: |
           cp -f openwrt/.config openwrt/feeds.conf.default openwrt/diy.sh current/
