@@ -1,22 +1,56 @@
 # ImmortalWrt 自动编译
 
-## 使用步骤：
+## 使用步骤
 
-1. fork 本仓库
+### 正常流程
 
-2. 上传 `.config` 文件与 `feeds.conf.default` 文件到此仓库(必须)
+1. (必须) fork 本仓库
+2. (必须) 上传 `.config` 文件与 `feeds.conf.default` 文件到此仓库
+3. (可选) 编辑仓库内的 `diy.sh` 文件，可以自定义编译前的命令，一般使用 git clone 来克隆需要使用到的第三方插件
+4. - 进入本仓库的 Actions 页面
+   - 在左侧选择 `🚀 编译 (Build)`
+   - 右侧点击 Run workflow
+   - 填入需要编译的仓库的信息
+   - 最后点击绿色的 Run workflow![run-workflow](img/run-workflow.png)
+5. 等待编译完成，大约需要 2-3 小时
+6. ![Build success](img/build-success.png)当页面像这样显示绿色的✅的时候，就说明编译完成了，点击进去到这个界面![build-result](img/build-result.png)找到 ImmortalWrt-build-result ，就是编译后的固件了。直接点击下载就可以
 
-3. 编辑仓库内的 `diy.sh` 文件，可以自定义编译前的命令，一般使用 git clone 来克隆需要使用到的第三方插件
+### 通过 SSH 连接到 Github Actions 进行编译
+
+和正常流程几乎没有区别，只是可以省下自己开 codespaces 编译的时间，比较方便一点 (注意：此过程中自己上传的 `.config` 和 `feeds.conf.default` 不会自动复制到对应目录，`diy.sh` 也不会自动执行。但是你可以在连接到编译环境以后自己手动复制和修改)
+
+1. (必须) fork 本仓库
+
+2. (必须) 上传 `.config` 文件与 `feeds.conf.default` 文件到此仓库
+
+3. (可选) 编辑仓库内的 `diy.sh` 文件，可以自定义编译前的命令，一般使用 git clone 来克隆需要使用到的第三方插件
 
 4. - 进入本仓库的 Actions 页面
    - 在左侧选择 `🚀 编译 (Build)`
    - 右侧点击 Run workflow
    - 填入需要编译的仓库的信息
-   - 最后点击绿色的 Run workflow![Run workflow](https://cdn.jsdelivr.net/gh/bling-yshs/ys-image-host@main/img/202405291542117.png)
+   - 把 **使用 ssh 连接到编译环境** 勾选上
+   - 最后点击绿色的 Run workflow![ssh-run](img/ssh-run.png)
 
-5. 等待编译完成，大约需要 2-3 小时
+5. 原地等待 10 秒，进入正在运行的 workflow![goto-workflow](img/goto-workflow.png)
 
-6. 进入编译完成的 workflow，点击左侧 Summary，下载 ImmortalWrt-build-result，解压后即为编译完成后的固件![build-result](picture/build-result.jpg)
+6. 点击左侧 `🚀 编译 (Build) - SSH` ![goto-ssh-log](img/goto-ssh-log.png)
+
+7. 找到 `开启 SSH 服务` 并展开，然后复制里面的 ssh session ，用自己的终端执行就可以连上了 (这里的 ssh session 都是一样的，随便找一个复制就行)![get-ssh-session](img/get-ssh-session.png)
+
+8. 连接成功以后，执行以下命令
+
+   ```shell
+   cd ImmortalWrt && ./scripts/feeds update -a && ./scripts/feeds install -a && make menuconfig
+   ```
+
+9. 根据自己的需要来定制 config![make-config](img/make-config.png)
+
+10. 保存以后会回到终端，**输入 `exit`  来退出 ssh**，退出以后会自动开始编译
+
+11. 等待编译完成，大约需要 2-3 小时
+
+12. ![Build success](img/build-success.png)当页面像这样显示绿色的✅的时候，就说明编译完成了，点击进去到这个界面![build-result](img/build-result.png)找到 ImmortalWrt-build-result ，就是编译后的固件了。直接点击下载就可以
 
 ## 如何定制 config 和 feeds：
 
@@ -72,16 +106,16 @@
 
 5. 执行 `make menuconfig` ，选择对应的 Target System，Subtarget，Target Profile
 
-6. 找到对应的模块的位置，将其选定，标记为M，M代表以模块方式编译，这样我们就不需要编译整个 openwrt 也可以编译出 ipk 文件啦。如图所示，选中以后记得选择 Save 来保存哦![mod](picture/mod.jpg)
+6. 找到对应的模块的位置，将其选定，标记为M，M代表以模块方式编译，这样我们就不需要编译整个 openwrt 也可以编译出 ipk 文件啦。如图所示，选中以后记得选择 Save 来保存哦![mod](img/mod.jpg)
 
 7. 开始编译吧，格式如下：
     ```shell
-    make package/项目名称/compile V=99
+    make package/项目名称/compile V=s
     ```
 
    例子：
    ```shell
-   make package/luci-app-pptp-server/compile V=99
+   make package/luci-app-pptp-server/compile V=s
    ```
 
 ## 我常用的一些插件
