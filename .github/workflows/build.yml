@@ -44,7 +44,7 @@ jobs:
           ref: ${{inputs.branch}}
           path: ImmortalWrt
 
-      - name: 复制当前仓库的配置文件 (Copy current repo config)
+      - name: 复制当前仓库的配置文件到 ImmortalWrt 仓库  (Copy current repo config to ImmortalWrt repo)
         run: |
           cp -f current/.config current/feeds.conf.default current/diy.sh ImmortalWrt/
 
@@ -58,6 +58,10 @@ jobs:
         working-directory: ImmortalWrt
         run: |
           ./scripts/feeds update -a && ./scripts/feeds install -a
+
+      - name: 再次复制当前仓库的配置文件到 ImmortalWrt 仓库 (Copy current repo config to ImmortalWrt repo again)
+        run: |
+          cp -f current/.config current/feeds.conf.default current/diy.sh ImmortalWrt/
 
       - name: 编译前上传配置 (Upload config before build)
         uses: actions/upload-artifact@v4
