@@ -2,3 +2,4 @@
 # Please enter the custom command below (usually used to install third-party plugins) (can be left blank)
 # git clone --depth=1 https://github.com/EOYOHOO/UA2F.git package/UA2F
 # git clone --depth=1 https://github.com/EOYOHOO/rkp-ipid.git package/rkp-ipid
+git clone https://github.com/izilzty/luci-app-chinadns-ng.git package/luci-app-chinadns-ng
