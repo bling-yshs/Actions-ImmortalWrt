@@ -7,17 +7,17 @@ on:
         description: 'ImmortalWrt 仓库的拥有者 (Owner of ImmortalWrt repo)'
         type: string
         required: true
-        default: 'hanwckf'
+        default: 'bbvdf'
       repo:
         description: 'ImmortalWrt 仓库的名字 (Name of ImmortalWrt repo)'
         type: string
         required: true
-        default: 'immortalwrt-mt798x'
+        default: 'immortalwrt'
       branch:
         description: 'ImmortalWrt 仓库的分支 (Branch of ImmortalWrt repo)'
         type: string
         required: true
-        default: 'openwrt-21.02'
+        default: '23.05'
       multithreading:
         description: '开启多线程编译 (Enable multithreading build)'
         type: boolean
