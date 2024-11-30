@@ -17,7 +17,7 @@ on:
         description: 'ImmortalWrt 仓库的分支 (Branch of ImmortalWrt repo)'
         type: string
         required: true
-        default: '23.05'
+        default: '24.10'
       multithreading:
         description: '开启多线程编译 (Enable multithreading build)'
         type: boolean
