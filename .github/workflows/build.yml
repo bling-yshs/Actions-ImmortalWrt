@@ -113,6 +113,11 @@ jobs:
         with:
           wait-timeout-minutes: 20
 
+#      # 你也可以使用这个，个人觉得它更好用 (You can use this, I personally think it is better)
+#      - name: 开启 SSH 服务 (Start SSH service)
+#        uses: mxschmitt/action-tmate@v3
+#        timeout-minutes: 15
+
       - name: 编译前上传配置 (Upload config before build)
         uses: actions/upload-artifact@v4
         with:
